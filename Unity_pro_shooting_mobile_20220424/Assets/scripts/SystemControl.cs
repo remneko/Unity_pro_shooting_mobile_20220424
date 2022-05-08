@@ -1,3 +1,4 @@
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,13 +22,17 @@ namespace Mui
         private float rangeDirectionIcon = 2.5f;
         [SerializeField, Header("角色旋轉速度"), Range(0, 5f)]
         private float speedTurn = 0.5f;
+        [SerializeField, Header("動畫參考跑步")]
+        private string parameterWalk = "開關跑步";
 
 
         private Rigidbody rig;
+        private Animator ani;
 
         private void Awake()
         {
             rig = GetComponent<Rigidbody>();
+            ani = GetComponent<Animator>();
         }
         private void FixedUpdate()
         {
@@ -39,6 +44,7 @@ namespace Mui
             GetJoystickvalue();
             UpdateDirectionIconPos();
             LookDirectionIcon();
+            Updateanimation();
         }
         /// <summary>
         /// 取得虛擬搖桿值
@@ -74,6 +80,15 @@ namespace Mui
             transform.rotation = Quaternion.Lerp(transform.rotation, look, speedTurn * Time.deltaTime);
             //角色的.歐拉角度 = 三維向量(0,原本的歐拉角度,0)
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        }
+        /// <summary>
+        /// 更新動畫
+        /// </summary>
+        private void Updateanimation()
+        {
+            //是否跑步 = 虛擬搖桿 水平 不為0 或 垂直 不為0
+            bool run = joystick.Horizontal != 0 || joystick.Vertical != 0;
+            ani.SetBool(parameterWalk, run);
         }
     }
 }
