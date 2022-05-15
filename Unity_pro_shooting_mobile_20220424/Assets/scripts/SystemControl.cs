@@ -1,6 +1,6 @@
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 
 //命名空間:程式區塊
@@ -10,7 +10,7 @@ namespace Mui
     /// 控制系統:移動功能
     /// 虛擬搖桿控制角色移動
     /// </summary>
-    public class SystemControl : MonoBehaviour
+    public class SystemControl : MonoBehaviourPun
     {
         [SerializeField, Header("虛擬搖桿")]
         private Joystick joystick;
@@ -24,6 +24,12 @@ namespace Mui
         private float speedTurn = 0.5f;
         [SerializeField, Header("動畫參考跑步")]
         private string parameterWalk = "開關跑步";
+        [SerializeField, Header("畫布")]
+        private GameObject goCanvas;
+        [SerializeField, Header("畫布玩家資訊")]
+        private GameObject goCanvasplayerInfo;
+        [SerializeField, Header("角色方向圖示")]
+        private GameObject goDirection;
 
 
         private Rigidbody rig;
@@ -33,6 +39,13 @@ namespace Mui
         {
             rig = GetComponent<Rigidbody>();
             ani = GetComponent<Animator>();
+
+            if (photonView.IsMine)
+            {
+                Instantiate(goCanvas);
+                Instantiate(goCanvasplayerInfo);
+                Instantiate(goDirection);
+            }
         }
         private void FixedUpdate()
         {

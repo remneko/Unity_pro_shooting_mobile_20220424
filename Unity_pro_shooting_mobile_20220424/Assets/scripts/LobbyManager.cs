@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun; //引用Photon.Pun API
 using Photon.Realtime;//引用Photon 即時API
-
+using System.Reflection;
 
 /// <summary>
 /// 大廳管理器
@@ -26,6 +26,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        //螢幕.設定解析度(寬,高,是否全螢幕)
+        Screen.SetResolution(720, 405, false);
         //Photon 連線 的 連線使用設定
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -91,6 +93,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         int maxCount = PhotonNetwork.CurrentRoom.MaxPlayers;
 
         textcountPlayer.text = "連線人數:" + currentCount + "/" + maxCount;
+
+        LoadGameScene(currentCount, maxCount);
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -103,5 +107,24 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         int maxCount = PhotonNetwork.CurrentRoom.MaxPlayers;
 
         textcountPlayer.text = "連線人數:" + currentCount + "/" + maxCount;
+
+        LoadGameScene(currentCount, maxCount);
+    }
+    /// <summary>
+    /// 載入場景
+    /// </summary>
+    private void LoadGameScene(int currentCount, int maxCount)
+    {
+
+        //clean code   乾淨程式
+        //1.不重複，問題 影響維護性
+        //當進入房間的玩家 等於 最大房間人數時 就進入遊戲場景
+
+        if (currentCount == maxCount)
+        {
+            //透過Photon 連線讓玩家 載入指定場景
+            //場景必須放在Build settings裡
+            PhotonNetwork.LoadLevel("遊戲場景");
+        }
     }
 }
