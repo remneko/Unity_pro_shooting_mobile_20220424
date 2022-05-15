@@ -2026,7 +2026,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7769424, y: 1}
+    m_SensorSize: {x: 1.7774565, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7112,6 +7112,7 @@ MonoBehaviour:
   - {fileID: 636692752}
   - {fileID: 690829425}
   - {fileID: 1271040633}
+  traSpawnPointList: []
 --- !u!1 &1333777016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2201808274985134742, guid: 3c7d5dece75cf9845ad850601668e7d8, type: 3}

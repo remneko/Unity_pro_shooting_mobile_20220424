@@ -1,18 +1,18 @@
 using UnityEngine;
 
 namespace Mui
-{ 
-    public class playerUIfollow : MonoBehaviour
+{
+    public class PlayerUIfollow : MonoBehaviour
     {
         [SerializeField, Header("¦ì²¾")]
         private Vector3 V3Offset;
         private string nameplayer = "¾Ô¤h";
-        private Transform traPlayer;
+        public Transform traPlayer;
 
-        private void Awake()
+        public void Awake()
         {
 
-            traPlayer = GameObject.Find(nameplayer).transform;
+            //  traPlayer = GameObject.Find(nameplayer).transform;
         }
 
         private void Update()
@@ -29,4 +29,3 @@ namespace Mui
         }
     }
 }
-

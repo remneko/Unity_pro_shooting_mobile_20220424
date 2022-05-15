@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Cinemachine;
+using mui;
 
 
 //命名空間:程式區塊
@@ -12,12 +14,9 @@ namespace Mui
     /// </summary>
     public class SystemControl : MonoBehaviourPun
     {
-        [SerializeField, Header("虛擬搖桿")]
-        private Joystick joystick;
+        
         [SerializeField, Header("移動速度"),Range(0,30)]
-        private float speed = 3.5f;
-        [SerializeField, Header("角色方向圖示")]
-        private Transform traDirectionIcon;
+        private float speed = 3.5f;      
         [SerializeField, Header("角色方向圖示範圍"), Range(0, 5f)]
         private float rangeDirectionIcon = 2.5f;
         [SerializeField, Header("角色旋轉速度"), Range(0, 5f)]
@@ -32,20 +31,44 @@ namespace Mui
         private GameObject goDirection;
 
 
+
         private Rigidbody rig;
         private Animator ani;
+        private Joystick joystick;
+        private Transform traDirectionIcon;
+        private CinemachineVirtualCamera cvc;
+        private SystemAttack systemAttack;
 
         private void Awake()
         {
             rig = GetComponent<Rigidbody>();
             ani = GetComponent<Animator>();
+            systemAttack = GetComponent<SystemAttack>();
 
             if (photonView.IsMine)
             {
-                Instantiate(goCanvas);
-                Instantiate(goCanvasplayerInfo);
-                Instantiate(goDirection);
+                PlayerUIfollow follow = Instantiate(goCanvasplayerInfo).GetComponent<PlayerUIfollow>();
+                follow.traPlayer = transform;
+
+                traDirectionIcon = Instantiate(goDirection).transform;                                                  //取得角色方向圖示
+
+                //transform.Find(子物件名稱).透過名稱搜尋此物件
+
+                GameObject tempCanvas = Instantiate(goCanvas);
+                joystick = tempCanvas.transform.Find("Dynamic Joystick").GetComponent<Joystick>();                     //取得畫布內的虛擬搖桿
+
+                systemAttack.btnFire = tempCanvas.transform.Find("發射按鈕").GetComponent<Button>();
+
+                cvc = GameObject.Find("CM 管理器").GetComponent<CinemachineVirtualCamera>();                           //取得攝影機CM管理器
+                cvc.Follow = transform;                                                                               //指定追蹤物件
             }
+            //否則不是進入的玩家 就關閉控制系統,避免控制到多個物件
+            else
+            {
+                enabled = false;
+            }
+
+            
         }
         private void FixedUpdate()
         {

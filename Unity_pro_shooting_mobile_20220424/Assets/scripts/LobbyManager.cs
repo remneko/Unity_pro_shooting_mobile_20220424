@@ -77,7 +77,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //新增房間設定物件
         RoomOptions ro = new RoomOptions();
         //指定房間最大人數
-        ro.MaxPlayers = 5;
+        ro.MaxPlayers = 2;
         //建立房間並給予房間物件
         PhotonNetwork.CreateRoom("",ro);
         
