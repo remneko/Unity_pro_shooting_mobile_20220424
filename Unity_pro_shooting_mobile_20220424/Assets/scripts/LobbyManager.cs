@@ -21,6 +21,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private Button btnBattle;
     [SerializeField, Header("連線人數")]
     private Text textcountPlayer;
+    [SerializeField, Header("連線最大人數"), Range(2, 20)]
+    private byte textcountmaxPlayer = 3;
 
     //喚醒事件:撥放遊戲時執行一次，初始化設定
 
@@ -77,7 +79,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //新增房間設定物件
         RoomOptions ro = new RoomOptions();
         //指定房間最大人數
-        ro.MaxPlayers = 2;
+        ro.MaxPlayers = textcountmaxPlayer;
         //建立房間並給予房間物件
         PhotonNetwork.CreateRoom("",ro);
         

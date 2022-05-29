@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 namespace mui
 { 
-    public class SystemAttack : MonoBehaviour
+    public class SystemAttack : MonoBehaviourPun
     {
         /// <summary>
         /// 攻擊系統
@@ -24,8 +25,10 @@ namespace mui
         private void Awake()
         {
             //發射按鈕.點擊.施加監聽器(開槍方法)，按下發射按鈕執行開槍方法
-            btnFire.onClick.AddListener(Fire);
-            
+            if (photonView.IsMine)
+            {
+                btnFire.onClick.AddListener(Fire);
+            }         
         }
 
         /// <summary>
@@ -34,7 +37,8 @@ namespace mui
         private void Fire()
         {
             //生成(物件,座標,角度)
-            Instantiate(goBullet, trafire.position, Quaternion.identity);
+             GameObject tempBullet = PhotonNetwork.Instantiate(goBullet.name, trafire.position, Quaternion.identity);
+            tempBullet.GetComponent<Rigidbody>().AddForce(transform.forward * speedfire);
         }
 
     }

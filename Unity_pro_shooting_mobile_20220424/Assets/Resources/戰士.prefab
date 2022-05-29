@@ -1771,6 +1771,8 @@ GameObject:
   - component: {fileID: 5156055095168697504}
   - component: {fileID: 8721705044513786930}
   - component: {fileID: 3054619939609981251}
+  - component: {fileID: 1922988998576500847}
+  - component: {fileID: -8787487466492911634}
   m_Layer: 0
   m_Name: "\u6230\u58EB"
   m_TagString: Untagged
@@ -1882,7 +1884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnFire: {fileID: 0}
-  goBullet: {fileID: 3643471838317807267, guid: 05fce1ce6e23642409f54aa93a49a744, type: 3}
+  goBullet: {fileID: 3324667718776250328, guid: 05fce1ce6e23642409f54aa93a49a744, type: 3}
   bulletCountMax: 3
   trafire: {fileID: 2651048706184290457}
   speedfire: 500
@@ -1907,6 +1909,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 8721705044513786930}
   - {fileID: 3054619939609981251}
+  - {fileID: 1922988998576500847}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1926,13 +1929,13 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: "\u89F8\u767C\u5C04\u64CA"
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: "\u958B\u95DC\u8DD1\u6B65"
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!114 &3054619939609981251
 MonoBehaviour:
@@ -1950,6 +1953,37 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &1922988998576500847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651048707618567121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &-8787487466492911634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651048707618567121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 010674be56223a145b64a60a602c35bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 200
+  goVFXHit: {fileID: 7629361206264265234, guid: 6361e38c53da69a48aa7cfe13a613b5b, type: 3}
+  Imghp: {fileID: 0}
 --- !u!1 &2651048707618567123
 GameObject:
   m_ObjectHideFlags: 0
