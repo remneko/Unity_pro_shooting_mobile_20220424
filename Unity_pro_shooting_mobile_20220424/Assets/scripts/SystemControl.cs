@@ -38,12 +38,14 @@ namespace Mui
         private Transform traDirectionIcon;
         private CinemachineVirtualCamera cvc;
         private SystemAttack systemAttack;
+        private DamageManager damageManager;
 
         private void Awake()
         {
             rig = GetComponent<Rigidbody>();
             ani = GetComponent<Animator>();
             systemAttack = GetComponent<SystemAttack>();
+            damageManager = GetComponent<DamageManager>();
 
             if (photonView.IsMine)
             {
@@ -61,6 +63,9 @@ namespace Mui
 
                 cvc = GameObject.Find("CM 管理器").GetComponent<CinemachineVirtualCamera>();                           //取得攝影機CM管理器
                 cvc.Follow = transform;                                                                               //指定追蹤物件
+
+                damageManager.Imghp = GameObject.Find("玩家血量圖片").GetComponent<Image>();
+                damageManager.textHp = GameObject.Find("玩家血量文字").GetComponent<Text>();
             }
             //否則不是進入的玩家 就關閉控制系統,避免控制到多個物件
             else

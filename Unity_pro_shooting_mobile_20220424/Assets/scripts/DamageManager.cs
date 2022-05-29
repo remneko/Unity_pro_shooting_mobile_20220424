@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using Unity.Mathematics;
 
 public class DamageManager : MonoBehaviourPun
 {
@@ -11,22 +12,34 @@ public class DamageManager : MonoBehaviourPun
 
     private string nameBullet = "子彈";
 
+    [HideInInspector]
     public Image Imghp;
+    [HideInInspector]
+    public Text textHp;
     private float maxHp;
+
 
     private void Awake()
     {
         maxHp = Hp;
+        if (photonView.IsMine) { textHp.text = Hp.ToString(); }
+        
     }
     //進入
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains(nameBullet))
+        //如果 
+        if (photonView.IsMine) return;
         {
-            //collision.contacts[0] 碰到的第一個物件
-            //碰到物件的座標
-            Damage(collision.contacts[0].point);
+            //如果 碰撞物件名稱 包含 () 就處理()
+            if (collision.gameObject.name.Contains(nameBullet))
+            {
+                //collision.contacts[0] 碰到的第一個物件
+                //碰到物件的座標
+                Damage(collision.contacts[0].point);
+            }
         }
+        
     }
 
     //持續
@@ -45,6 +58,9 @@ public class DamageManager : MonoBehaviourPun
     {
         Hp -= 20;
         Imghp.fillAmount = Hp / maxHp;
+        Hp = Mathf.Clamp(Hp,0, maxHp);
+
+        textHp.text = Hp.ToString();
 
         //連線.生成(特效,擊中座標,角度)
         PhotonNetwork.Instantiate(goVFXHit.name, posHit, Quaternion.identity);
