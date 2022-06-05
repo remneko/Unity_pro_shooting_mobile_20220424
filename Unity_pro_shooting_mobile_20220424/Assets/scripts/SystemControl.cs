@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Cinemachine;
 using mui;
+using TMPro;
 
 
 //命名空間:程式區塊
@@ -35,7 +36,7 @@ namespace Mui
         private Rigidbody rig;
         private Animator ani;
         private Joystick joystick;
-        private Transform traDirectionIcon;
+        public Transform traDirectionIcon;
         private CinemachineVirtualCamera cvc;
         private SystemAttack systemAttack;
         private DamageManager damageManager;
@@ -65,7 +66,7 @@ namespace Mui
                 cvc.Follow = transform;                                                                               //指定追蹤物件
 
                 damageManager.Imghp = GameObject.Find("玩家血量圖片").GetComponent<Image>();
-                damageManager.textHp = GameObject.Find("玩家血量文字").GetComponent<Text>();
+                damageManager.textHp = GameObject.Find("玩家血量文字").GetComponent<TextMeshProUGUI>();
             }
             //否則不是進入的玩家 就關閉控制系統,避免控制到多個物件
             else
@@ -82,7 +83,7 @@ namespace Mui
 
         private void Update()
         {
-            GetJoystickvalue();
+            //GetJoystickvalue();
             UpdateDirectionIconPos();
             LookDirectionIcon();
             Updateanimation();
@@ -115,6 +116,9 @@ namespace Mui
 
         private void LookDirectionIcon()
         {
+            if (Mathf.Abs(joystick.Vertical) < 01f && Mathf.Abs(joystick.Horizontal) < 0.1f) return;
+            
+
             //取得面相角度 = 四位元.面相角度(方向圖示 - 角色) - 方向圖示與角色的向量
             Quaternion look = Quaternion.LookRotation(traDirectionIcon.position - transform.position);
             //角色的角度 = 四位元.插值(角色的角度,面相角度,旋轉速度*一幀的時間)

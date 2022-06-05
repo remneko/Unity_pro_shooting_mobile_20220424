@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951e7bda861c63543a5eb510e690c9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  V3Offset: {x: 0, y: 0, z: 0}
+  V3Offset: {x: 0, y: 2, z: 0}
   traPlayer: {fileID: 7635990969923467179, guid: 0452f750a94cf054099ecf6c9a542177, type: 3}
 --- !u!1 &8130698533644140310
 GameObject:
