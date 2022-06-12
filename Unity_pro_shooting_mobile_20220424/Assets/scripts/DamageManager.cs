@@ -117,5 +117,24 @@ public class DamageManager : MonoBehaviourPun
             materialDissolve.SetFloat("dissolve", valueDissolve);                    //更新著色器屬性，注意要控制Reference
             yield return new WaitForSeconds(0.08f);
         }
+
+        ReturnToLobby();
     }
+    /// <summary>
+    /// 回到大廳
+    /// </summary>
+    private void ReturnToLobby()
+    {
+        if (photonView.IsMine)
+        {
+            PhotonNetwork.LeaveRoom();                                                  //離開房間
+            PhotonNetwork.LoadLevel("遊戲大廳");                                        //回到大廳場景
+
+        }
+    
+    
+    }
+
+
+
 }
